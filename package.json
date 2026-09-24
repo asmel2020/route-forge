@@ -1,0 +1,26 @@
+{
+  "name": "route-forge",
+  "private": true,
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,mts,json,md,yaml,yml}\"",
+    "check-types": "turbo run check-types && tsc -p tsconfig.json",
+    "test": "turbo run test",
+    "test:coverage": "turbo run test:coverage",
+    "test:e2e": "turbo run build --filter=@repo/route-forge-test-app && playwright test",
+    "test:all": "pnpm test && pnpm check-types && pnpm test:e2e"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.63.0",
+    "@types/node": "^24.13.6",
+    "prettier": "3.9.6",
+    "turbo": "^2.11.3",
+    "typescript": "7.0.2"
+  },
+  "packageManager": "pnpm@11.25.0",
+  "engines": {
+    "node": ">=24"
+  }
+}

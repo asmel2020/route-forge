@@ -1,0 +1,29 @@
+{
+  "name": "@repo/route-forge",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "exports": {
+    ".": "./index.ts"
+  },
+  "scripts": {
+    "check-types": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage"
+  },
+  "dependencies": {
+    "zod": "^3.23.8"
+  },
+  "peerDependencies": {
+    "next": ">=14.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.13.6",
+    "@vitest/coverage-v8": "^5.0.1",
+    "next": "14.2.35",
+    "typescript": "^5",
+    "vitest": "^5.0.1"
+  }
+}
