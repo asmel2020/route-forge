@@ -10,7 +10,7 @@ Si en el futuro se agrega otro `AGENTS.md` dentro de una carpeta, sus reglas apl
 
 `route-forge` es un monorepo privado escrito en TypeScript, gestionado con pnpm y orquestado con Turborepo. Su objetivo es facilitar la construcción de endpoints de Next.js App Router mediante un pipeline común de petición, validación, middleware, lógica de negocio y respuesta.
 
-El paquete principal es `route-forge`. El flujo principal es:
+El paquete principal es `@dannyjgg/route-forge`. El flujo principal es:
 
 ```text
 Request -> parseo del body -> validación -> middleware -> servicio -> Response JSON
@@ -25,7 +25,7 @@ route-forge/
 ├── apps/
 │   └── test-app/                 # App Next estable para E2E de API
 ├── packages/
-│   └── route-forge/              # Biblioteca route-forge
+│   └── route-forge/              # Biblioteca @dannyjgg/route-forge
 │       ├── helpers/
 │       │   ├── exceptions.ts
 │       │   └── validate.ts
@@ -136,7 +136,7 @@ pnpm build
 Valida metadata, tipos y contenido del tarball npm:
 
 ```bash
-pnpm --filter route-forge package:check
+pnpm --filter @dannyjgg/route-forge package:check
 ```
 
 Compila la app y ejecuta E2E:
@@ -161,13 +161,13 @@ Cuando sea posible, limita el formateo a los archivos modificados para evitar ca
 
 ## Publicación npm
 
-El paquete público se llama `route-forge`. GitHub Actions publica cuando se crea un tag cuyo nombre coincide exactamente con `v` y la versión de `packages/route-forge/package.json`.
+El paquete público se llama `@dannyjgg/route-forge`. GitHub Actions publica cuando se crea un tag cuyo nombre coincide exactamente con `v` y la versión de `packages/route-forge/package.json`.
 
 Antes del primer release:
 
 1. Configura el secret `NPM_TOKEN_V` en GitHub.
 2. Confirma que el tag pendiente no exista en GitHub ni en npm.
-3. Ejecuta `pnpm test:all` y `pnpm --filter route-forge package:check`.
+3. Ejecuta `pnpm test:all` y `pnpm --filter @dannyjgg/route-forge package:check`.
 4. Crea el tag `v0.1.0` solamente cuando el usuario lo solicite.
 
 El workflow ejecuta coverage, E2E, `publint`, `attw`, validación del tarball y publica con provenance. No publiques si una versión equivalente ya existe en npm.
@@ -191,6 +191,6 @@ Una modificación está completa cuando:
 - Pasa `pnpm check-types`.
 - Pasa las pruebas unitarias relacionadas.
 - Pasa `pnpm test:e2e` cuando cambia la integración con Next.js.
-- Pasa `pnpm --filter route-forge package:check` cuando cambia metadata, exports o build publicable.
+- Pasa `pnpm --filter @dannyjgg/route-forge package:check` cuando cambia metadata, exports o build publicable.
 - No contiene dependencias o artefactos generados manualmente.
 - La documentación relevante permanece sincronizada con el código.

@@ -57,18 +57,18 @@ jobs:
         run: pnpm test:e2e
 
       - name: Validate npm package
-        run: pnpm --filter route-forge package:check
+        run: pnpm --filter @dannyjgg/route-forge package:check
 
       - name: Ensure version is unpublished
         run: |
           VERSION=$(node -p "require('./packages/route-forge/package.json').version")
-          if npm view "route-forge@$VERSION" version > /dev/null 2>&1; then
-            echo "route-forge@$VERSION already exists on npm"
+          if npm view "@dannyjgg/route-forge@$VERSION" version > /dev/null 2>&1; then
+            echo "@dannyjgg/route-forge@$VERSION already exists on npm"
             exit 1
           fi
 
       - name: Publish
-        run: pnpm --filter route-forge publish --access public --no-git-checks
+        run: pnpm --filter @dannyjgg/route-forge publish --access public --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN_V }}
           NPM_CONFIG_PROVENANCE: true

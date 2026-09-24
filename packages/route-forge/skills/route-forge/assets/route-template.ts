@@ -1,4 +1,8 @@
-import { handleRequest, type Middleware, NotFoundException } from "route-forge";
+import {
+  handleRequest,
+  type Middleware,
+  NotFoundException,
+} from "@dannyjgg/route-forge";
 import type { NextRequest } from "next/server";
 import { z } from "zod";
 

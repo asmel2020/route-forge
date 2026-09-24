@@ -1,5 +1,5 @@
 {
-  "name": "route-forge",
+  "name": "@dannyjgg/route-forge",
   "version": "0.1.0",
   "description": "Type-safe request pipeline for Next.js App Router route handlers",
   "type": "module",

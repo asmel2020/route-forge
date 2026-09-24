@@ -17,11 +17,11 @@ Route Forge es una biblioteca TypeScript para facilitar endpoints de Next.js App
 ## Instalación del paquete
 
 ```bash
-pnpm add route-forge zod
+pnpm add @dannyjgg/route-forge zod
 ```
 
 ```bash
-npm install route-forge zod
+npm install @dannyjgg/route-forge zod
 ```
 
 La aplicación consumidora debe tener Next.js 14 o superior.
@@ -37,7 +37,7 @@ El skill se distribuye también dentro del paquete npm y documenta el flujo comp
 ## Uso básico
 
 ```ts
-import { handleRequest } from "route-forge";
+import { handleRequest } from "@dannyjgg/route-forge";
 import type { NextRequest } from "next/server";
 import { z } from "zod";
 
@@ -79,18 +79,18 @@ pnpm build
 
 ## Comandos
 
-| Comando                                   | Descripción                                            |
-| ----------------------------------------- | ------------------------------------------------------ |
-| `pnpm dev`                                | Inicia las tareas persistentes del workspace           |
-| `pnpm build`                              | Compila las apps y el paquete ESM                      |
-| `pnpm check-types`                        | Comprueba los tipos de todo el workspace               |
-| `pnpm test`                               | Ejecuta las pruebas unitarias                          |
-| `pnpm test:coverage`                      | Genera coverage V8 sin umbral obligatorio              |
-| `pnpm test:e2e`                           | Compila la app y ejecuta Playwright                    |
-| `pnpm test:all`                           | Ejecuta unitarias, tipos y E2E                         |
-| `pnpm --filter route-forge package:check` | Valida metadata, tipos, tamaño y contenido del tarball |
-| `pnpm format:check`                       | Comprueba el formato sin escribir archivos             |
-| `pnpm format`                             | Formatea el repositorio con Prettier                   |
+| Comando                                             | Descripción                                            |
+| --------------------------------------------------- | ------------------------------------------------------ |
+| `pnpm dev`                                          | Inicia las tareas persistentes del workspace           |
+| `pnpm build`                                        | Compila las apps y el paquete ESM                      |
+| `pnpm check-types`                                  | Comprueba los tipos de todo el workspace               |
+| `pnpm test`                                         | Ejecuta las pruebas unitarias                          |
+| `pnpm test:coverage`                                | Genera coverage V8 sin umbral obligatorio              |
+| `pnpm test:e2e`                                     | Compila la app y ejecuta Playwright                    |
+| `pnpm test:all`                                     | Ejecuta unitarias, tipos y E2E                         |
+| `pnpm --filter @dannyjgg/route-forge package:check` | Valida metadata, tipos, tamaño y contenido del tarball |
+| `pnpm format:check`                                 | Comprueba el formato sin escribir archivos             |
+| `pnpm format`                                       | Formatea el repositorio con Prettier                   |
 
 ## Estrategia de pruebas
 

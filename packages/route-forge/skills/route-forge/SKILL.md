@@ -6,7 +6,7 @@ compatibility: Requires Next.js 14 or newer and Zod 4.
 metadata:
   author: asmel2020
   version: "0.1.0"
-  package: route-forge
+  package: "@dannyjgg/route-forge"
 ---
 
 # Route Forge
@@ -16,7 +16,7 @@ Use Route Forge to standardize a Next.js App Router route handler without creati
 ## Install
 
 ```bash
-pnpm add route-forge zod
+pnpm add @dannyjgg/route-forge zod
 ```
 
 Next.js must be installed by the consuming application.
@@ -35,7 +35,7 @@ Request -> body -> params -> query -> Zod validation -> middleware -> service ->
 
 Keep these rules:
 
-1. Import the public API only from `route-forge`.
+1. Import the public API only from `@dannyjgg/route-forge`.
 2. Keep the framework handler in `route.ts`.
 3. Return data from the service, never a `Response`.
 4. Pass dynamic route props as `payload` when using `params` validation.
@@ -51,7 +51,7 @@ Use [`assets/route-template.ts`](assets/route-template.ts) when creating a new e
 ## Basic route
 
 ```ts
-import { handleRequest } from "route-forge";
+import { handleRequest } from "@dannyjgg/route-forge";
 import type { NextRequest } from "next/server";
 
 export async function GET(request: NextRequest) {
@@ -65,7 +65,7 @@ export async function GET(request: NextRequest) {
 ## Validated JSON body
 
 ```ts
-import { handleRequest } from "route-forge";
+import { handleRequest } from "@dannyjgg/route-forge";
 import type { NextRequest } from "next/server";
 import { z } from "zod";
 
@@ -92,7 +92,7 @@ The body, query, and params types are inferred from their Zod schemas.
 ## Dynamic params
 
 ```ts
-import { handleRequest } from "route-forge";
+import { handleRequest } from "@dannyjgg/route-forge";
 import type { NextRequest } from "next/server";
 import { z } from "zod";
 
@@ -157,7 +157,7 @@ Repeated FormData fields are converted to arrays before validation.
 Middleware executes sequentially. Each function receives `(request, context)` and returns a plain object. Returned values are merged in order.
 
 ```ts
-import { UnauthorizedException, type Middleware } from "route-forge";
+import { UnauthorizedException, type Middleware } from "@dannyjgg/route-forge";
 
 type AuthData = { user: { id: string } };
 
@@ -184,7 +184,7 @@ import {
   ForbiddenException,
   NotFoundException,
   UnauthorizedException,
-} from "route-forge";
+} from "@dannyjgg/route-forge";
 
 throw new NotFoundException("User not found");
 throw new UnauthorizedException();
@@ -239,10 +239,10 @@ pnpm test
 When working inside the Route Forge repository:
 
 ```bash
-pnpm --filter route-forge test
+pnpm --filter @dannyjgg/route-forge test
 pnpm check-types
 pnpm test:e2e
-pnpm --filter route-forge package:check
+pnpm --filter @dannyjgg/route-forge package:check
 ```
 
 ## Completion checklist

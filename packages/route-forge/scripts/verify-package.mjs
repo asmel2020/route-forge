@@ -32,7 +32,7 @@ const maxPackedSize = 25 * 1024;
 const maxUnpackedSize = 100 * 1024;
 const errors = [];
 
-if (manifest.name !== "route-forge") {
+if (manifest.name !== "@dannyjgg/route-forge") {
   errors.push(`Unexpected package name: ${manifest.name}`);
 }
 

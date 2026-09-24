@@ -5,11 +5,11 @@ Type-safe request pipeline for Next.js App Router route handlers. Route Forge st
 ## Installation
 
 ```bash
-npm install route-forge zod
+npm install @dannyjgg/route-forge zod
 ```
 
 ```bash
-pnpm add route-forge zod
+pnpm add @dannyjgg/route-forge zod
 ```
 
 Requirements:
@@ -139,7 +139,7 @@ Cualquier excepción de tipo `HttpError` lanzada dentro de un servicio o middlew
 
 ```typescript
 // src/app/api/health/route.ts
-import { handleRequest } from "route-forge";
+import { handleRequest } from "@dannyjgg/route-forge";
 import { NextRequest } from "next/server";
 
 const healthCheck = () => {
@@ -155,10 +155,10 @@ export async function GET(request: NextRequest) {
 
 ```typescript
 // src/app/api/users/route.ts
-import { handleRequest } from "route-forge";
+import { handleRequest } from "@dannyjgg/route-forge";
 import { NextRequest } from "next/server";
 import { z } from "zod";
-import type { ServiceContext } from "route-forge";
+import type { ServiceContext } from "@dannyjgg/route-forge";
 
 const createUserSchema = z.object({
   name: z.string().min(2),
@@ -201,8 +201,8 @@ export async function POST(request: NextRequest) {
 // src/app/api/users/route.ts
 import { NextRequest } from "next/server";
 import { z } from "zod";
-import { handleRequest } from "route-forge";
-import type { ServiceContext } from "route-forge";
+import { handleRequest } from "@dannyjgg/route-forge";
+import type { ServiceContext } from "@dannyjgg/route-forge";
 
 const listUsersQuery = z.object({
   page: z.coerce.number().min(1).default(1),
@@ -239,9 +239,9 @@ export async function GET(request: NextRequest) {
 ```typescript
 // src/app/api/users/[id]/route.ts
 import { z } from "zod";
-import { handleRequest } from "route-forge";
+import { handleRequest } from "@dannyjgg/route-forge";
 import { NextRequest } from "next/server";
-import type { ServiceContext } from "route-forge";
+import type { ServiceContext } from "@dannyjgg/route-forge";
 
 const paramsSchema = z.object({
   id: z.string().uuid(),
@@ -273,8 +273,8 @@ export async function GET(
 
 ```typescript
 // src/lib/middlewares/auth.ts
-import { UnauthorizedException } from "route-forge";
-import type { ExtendsRequest, RequestContext } from "route-forge";
+import { UnauthorizedException } from "@dannyjgg/route-forge";
+import type { ExtendsRequest, RequestContext } from "@dannyjgg/route-forge";
 
 export interface AuthData {
   user: {
@@ -302,8 +302,8 @@ export async function auth(request: ExtendsRequest, context: RequestContext) {
 ```typescript
 // src/app/api/protected/route.ts
 import { NextRequest } from "next/server";
-import { handleRequest } from "route-forge";
-import type { ServiceContext } from "route-forge";
+import { handleRequest } from "@dannyjgg/route-forge";
+import type { ServiceContext } from "@dannyjgg/route-forge";
 import { auth } from "@/lib/middlewares/auth";
 import type { AuthData } from "@/lib/middlewares/auth";
 
@@ -347,8 +347,8 @@ export async function DELETE(request: NextRequest) {
 ```typescript
 import { NextRequest } from "next/server";
 import { z } from "zod";
-import { handleRequest } from "route-forge";
-import type { ServiceContext } from "route-forge";
+import { handleRequest } from "@dannyjgg/route-forge";
+import type { ServiceContext } from "@dannyjgg/route-forge";
 
 const uploadSchema = z.object({ avatar: z.instanceof(File) });
 
@@ -374,8 +374,8 @@ export async function POST(request: NextRequest) {
 
 ```typescript
 import { z } from "zod";
-import { NotFoundException } from "route-forge";
-import type { ServiceContext } from "route-forge";
+import { NotFoundException } from "@dannyjgg/route-forge";
+import type { ServiceContext } from "@dannyjgg/route-forge";
 
 const paramsSchema = z.object({ id: z.string().uuid() });
 
@@ -458,13 +458,13 @@ El contrato público usa el `Request` estándar mediante `ExtendsRequest`, por l
 Ejecuta las pruebas unitarias y de integración:
 
 ```bash
-pnpm --filter route-forge test
+pnpm --filter @dannyjgg/route-forge test
 ```
 
 Genera el reporte de coverage V8:
 
 ```bash
-pnpm --filter route-forge test:coverage
+pnpm --filter @dannyjgg/route-forge test:coverage
 ```
 
 El coverage se genera durante el desarrollo en `packages/route-forge/coverage/` y no establece un umbral mínimo.
