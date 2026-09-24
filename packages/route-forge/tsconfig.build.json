@@ -1,0 +1,23 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "declaration": true,
+    "declarationMap": false,
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "noEmit": false,
+    "outDir": "dist",
+    "removeComments": true,
+    "rootDir": ".",
+    "sourceMap": false,
+    "stripInternal": true,
+    "target": "ES2022"
+  },
+  "include": [
+    "index.ts",
+    "handle-request.ts",
+    "helpers/**/*.ts",
+    "interfaces/**/*.ts"
+  ],
+  "exclude": ["dist", "node_modules", "tests", "vitest.config.mts"]
+}

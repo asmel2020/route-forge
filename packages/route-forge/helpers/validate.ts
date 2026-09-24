@@ -1,6 +1,6 @@
 import { ZodError } from "zod";
 import type { z, ZodType } from "zod";
-import { ValidateException } from "./exceptions";
+import { ValidateException } from "./exceptions.js";
 
 export const Validate = <T extends ZodType<unknown, unknown>>(
   Schema: T,

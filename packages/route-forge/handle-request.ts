@@ -1,6 +1,6 @@
 import type { z } from "zod";
-import { HttpError } from "./helpers/exceptions";
-import { Validate } from "./helpers/validate";
+import { HttpError } from "./helpers/exceptions.js";
+import { Validate } from "./helpers/validate.js";
 import type {
   handleRequestType,
   Middleware,
@@ -8,7 +8,7 @@ import type {
   QueryParams,
   RequestContext,
   RequestSchema,
-} from "./interfaces";
+} from "./interfaces/index.js";
 
 const methodsWithBody = new Set(["POST", "PUT", "PATCH", "DELETE"]);
 

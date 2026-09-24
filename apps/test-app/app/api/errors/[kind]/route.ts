@@ -2,7 +2,7 @@ import {
   ForbiddenException,
   handleRequest,
   NotFoundException,
-} from "@repo/route-forge";
+} from "route-forge";
 import type { NextRequest } from "next/server";
 import { z } from "zod";
 

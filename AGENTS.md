@@ -10,7 +10,7 @@ Si en el futuro se agrega otro `AGENTS.md` dentro de una carpeta, sus reglas apl
 
 `route-forge` es un monorepo privado escrito en TypeScript, gestionado con pnpm y orquestado con Turborepo. Su objetivo es facilitar la construcción de endpoints de Next.js App Router mediante un pipeline común de petición, validación, middleware, lógica de negocio y respuesta.
 
-El paquete principal es `@repo/route-forge`. El flujo principal es:
+El paquete principal es `route-forge`. El flujo principal es:
 
 ```text
 Request -> parseo del body -> validación -> middleware -> servicio -> Response JSON
@@ -25,21 +25,26 @@ route-forge/
 ├── apps/
 │   └── test-app/                 # App Next estable para E2E de API
 ├── packages/
-│   └── route-forge/              # Biblioteca @repo/route-forge
+│   └── route-forge/              # Biblioteca route-forge
 │       ├── helpers/
 │       │   ├── exceptions.ts
 │       │   └── validate.ts
 │       ├── interfaces/
 │       │   └── index.ts
+│       ├── skills/route-forge/   # Skill portable para agentes
+│       ├── scripts/              # Validación del tarball npm
 │       ├── tests/                # Pruebas unitarias Vitest
 │       ├── handle-request.ts
 │       ├── index.ts
 │       ├── vitest.config.mts
+│       ├── LICENSE
 │       ├── package.json
+│       ├── tsconfig.build.json
 │       ├── tsconfig.json
 │       └── README.md
 ├── tests/
 │   └── e2e/                      # Pruebas E2E de API con Playwright
+├── .github/workflows/            # CI y publicación por tag
 ├── playwright.config.ts
 ├── package.json
 ├── pnpm-lock.yaml
@@ -65,13 +70,13 @@ route-forge/
 
 Los servicios deben retornar datos, no una `Response`. `handleRequest` serializa la respuesta. Los errores `HttpError` se traducen a respuestas controladas; cualquier otro error se registra y se convierte en un `500` genérico.
 
-`packages/route-forge/index.ts` es la API pública. Mantén sincronizados el código, sus tipos, el README y las pruebas al cambiar exports o comportamiento.
+`packages/route-forge/index.ts` es la fuente de la API pública y `dist/index.js` es el artefacto publicado. Mantén sincronizados el código, sus tipos, el README y las pruebas al cambiar exports o comportamiento.
 
 ## Estrategia de pruebas
 
 - **Vitest:** unitarias e integración directa de `handleRequest`, Zod, FormData, params, middlewares, respuestas y excepciones.
 - **Next 14:** el dev dependency del paquete mantiene el chequeo de tipos de la versión mínima soportada.
-- **Next estable:** `apps/test-app` compila y ejecuta el paquete mediante `workspace:*` y `transpilePackages`.
+- **Next estable:** `apps/test-app` compila y ejecuta el artefacto ESM de `dist` mediante `workspace:*`.
 - **Playwright:** realiza E2E de API con `request`; no requiere navegador ni viewport.
 - **Coverage:** Vitest genera reportes V8 HTML y LCOV sin umbral obligatorio.
 
@@ -79,7 +84,7 @@ No agregues lógica exclusiva para satisfacer una prueba. Las rutas de `apps/tes
 
 ## Stack y restricciones
 
-- Node.js `>=24`.
+- Node.js `>=24` para desarrollo; el paquete publicado admite Node.js `>=18.17.0`.
 - pnpm `11.25.0`.
 - TypeScript estricto.
 - Next.js `>=14` como peer dependency.
@@ -90,7 +95,7 @@ No agregues lógica exclusiva para satisfacer una prueba. Las rutas de `apps/tes
 
 Usa únicamente pnpm. No introduzcas lockfiles de npm, Yarn o Bun. Ejecuta `pnpm install` después de cambiar dependencias y no edites `pnpm-lock.yaml` manualmente.
 
-No modifiques ni agregues archivos dentro de `node_modules/`, `.next/`, `.turbo/`, `coverage/`, `playwright-report/` o cualquier carpeta generada. No copies `node_modules` entre repositorios.
+No modifiques ni agregues archivos dentro de `node_modules/`, `dist/`, `.next/`, `.turbo/`, `coverage/`, `playwright-report/` o cualquier carpeta generada. No copies `node_modules` entre repositorios.
 
 Mantén los cambios pequeños y enfocados. Evita `any`, refactors generales, cambios de API o dependencias innecesarias. Conserva los nombres de errores y respuestas existentes y no muestres secretos.
 
@@ -122,6 +127,18 @@ Ejecuta los tipos de todo el workspace:
 pnpm check-types
 ```
 
+Compila el workspace y genera el artefacto publicable:
+
+```bash
+pnpm build
+```
+
+Valida metadata, tipos y contenido del tarball npm:
+
+```bash
+pnpm --filter route-forge package:check
+```
+
 Compila la app y ejecuta E2E:
 
 ```bash
@@ -142,6 +159,19 @@ pnpm format
 
 Cuando sea posible, limita el formateo a los archivos modificados para evitar cambios ajenos.
 
+## Publicación npm
+
+El paquete público se llama `route-forge`. GitHub Actions publica cuando se crea un tag cuyo nombre coincide exactamente con `v` y la versión de `packages/route-forge/package.json`.
+
+Antes del primer release:
+
+1. Configura el secret `NPM_TOKEN_V` en GitHub.
+2. Confirma que el tag pendiente no exista en GitHub ni en npm.
+3. Ejecuta `pnpm test:all` y `pnpm --filter route-forge package:check`.
+4. Crea el tag `v0.1.0` solamente cuando el usuario lo solicite.
+
+El workflow ejecuta coverage, E2E, `publint`, `attw`, validación del tarball y publica con provenance. No publiques si una versión equivalente ya existe en npm.
+
 ## Flujo de trabajo recomendado
 
 1. Lee el contexto, los archivos afectados y las pruebas existentes antes de editar.
@@ -161,5 +191,6 @@ Una modificación está completa cuando:
 - Pasa `pnpm check-types`.
 - Pasa las pruebas unitarias relacionadas.
 - Pasa `pnpm test:e2e` cuando cambia la integración con Next.js.
+- Pasa `pnpm --filter route-forge package:check` cuando cambia metadata, exports o build publicable.
 - No contiene dependencias o artefactos generados manualmente.
 - La documentación relevante permanece sincronizada con el código.

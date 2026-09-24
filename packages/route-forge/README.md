@@ -1,20 +1,38 @@
-# RouteForge — Request Pipeline Library
+# route-forge
 
-> Mini-librería para construir pipelines de procesamiento de peticiones HTTP en Next.js App Router con validación automática, middlewares encadenables y manejo centralizado de errores.
+Type-safe request pipeline for Next.js App Router route handlers. Route Forge standardizes JSON and `FormData` parsing, Zod validation, dynamic params, middleware, services, HTTP errors, and JSON responses.
 
-## Estructura del proyecto
+## Installation
 
+```bash
+npm install route-forge zod
 ```
-packages/route-forge/
-├── handle-request.ts           # Función principal del pipeline
-├── helpers/
-│   ├── exceptions.ts           # Clases de error HTTP personalizadas
-│   └── validate.ts             # Helper de validación con Zod
-├── interfaces/
-│   └── index.ts                # Tipos e interfaces TypeScript
-├── tests/                      # Pruebas unitarias Vitest
-└── vitest.config.mts            # Configuración de Vitest y coverage
+
+```bash
+pnpm add route-forge zod
 ```
+
+Requirements:
+
+- Next.js 14 or newer.
+- Zod 4.
+- ESM-compatible project.
+
+## Agent skill
+
+Install the complete usage skill for OpenCode, Claude Code, Codex, Cursor, and other Agent Skills-compatible tools:
+
+```bash
+npx skills add asmel2020/route-forge --skill route-forge
+```
+
+The skill is also included in this npm package. Projects using `npm-skills` can extract it with:
+
+```bash
+npx npm-skills extract --output .agents/skills/extracted
+```
+
+Route Forge does not run `postinstall` scripts or modify agent configuration automatically.
 
 ---
 
@@ -121,7 +139,7 @@ Cualquier excepción de tipo `HttpError` lanzada dentro de un servicio o middlew
 
 ```typescript
 // src/app/api/health/route.ts
-import { handleRequest } from "@repo/route-forge";
+import { handleRequest } from "route-forge";
 import { NextRequest } from "next/server";
 
 const healthCheck = () => {
@@ -137,10 +155,10 @@ export async function GET(request: NextRequest) {
 
 ```typescript
 // src/app/api/users/route.ts
-import { handleRequest } from "@repo/route-forge";
+import { handleRequest } from "route-forge";
 import { NextRequest } from "next/server";
 import { z } from "zod";
-import type { ServiceContext } from "@repo/route-forge";
+import type { ServiceContext } from "route-forge";
 
 const createUserSchema = z.object({
   name: z.string().min(2),
@@ -183,8 +201,8 @@ export async function POST(request: NextRequest) {
 // src/app/api/users/route.ts
 import { NextRequest } from "next/server";
 import { z } from "zod";
-import { handleRequest } from "@repo/route-forge";
-import type { ServiceContext } from "@repo/route-forge";
+import { handleRequest } from "route-forge";
+import type { ServiceContext } from "route-forge";
 
 const listUsersQuery = z.object({
   page: z.coerce.number().min(1).default(1),
@@ -221,9 +239,9 @@ export async function GET(request: NextRequest) {
 ```typescript
 // src/app/api/users/[id]/route.ts
 import { z } from "zod";
-import { handleRequest } from "@repo/route-forge";
+import { handleRequest } from "route-forge";
 import { NextRequest } from "next/server";
-import type { ServiceContext } from "@repo/route-forge";
+import type { ServiceContext } from "route-forge";
 
 const paramsSchema = z.object({
   id: z.string().uuid(),
@@ -255,8 +273,8 @@ export async function GET(
 
 ```typescript
 // src/lib/middlewares/auth.ts
-import { UnauthorizedException } from "@repo/route-forge";
-import type { ExtendsRequest, RequestContext } from "@repo/route-forge";
+import { UnauthorizedException } from "route-forge";
+import type { ExtendsRequest, RequestContext } from "route-forge";
 
 export interface AuthData {
   user: {
@@ -284,8 +302,8 @@ export async function auth(request: ExtendsRequest, context: RequestContext) {
 ```typescript
 // src/app/api/protected/route.ts
 import { NextRequest } from "next/server";
-import { handleRequest } from "@repo/route-forge";
-import type { ServiceContext } from "@repo/route-forge";
+import { handleRequest } from "route-forge";
+import type { ServiceContext } from "route-forge";
 import { auth } from "@/lib/middlewares/auth";
 import type { AuthData } from "@/lib/middlewares/auth";
 
@@ -329,8 +347,8 @@ export async function DELETE(request: NextRequest) {
 ```typescript
 import { NextRequest } from "next/server";
 import { z } from "zod";
-import { handleRequest } from "@repo/route-forge";
-import type { ServiceContext } from "@repo/route-forge";
+import { handleRequest } from "route-forge";
+import type { ServiceContext } from "route-forge";
 
 const uploadSchema = z.object({ avatar: z.instanceof(File) });
 
@@ -356,8 +374,8 @@ export async function POST(request: NextRequest) {
 
 ```typescript
 import { z } from "zod";
-import { NotFoundException } from "@repo/route-forge";
-import type { ServiceContext } from "@repo/route-forge";
+import { NotFoundException } from "route-forge";
+import type { ServiceContext } from "route-forge";
 
 const paramsSchema = z.object({ id: z.string().uuid() });
 
@@ -440,16 +458,16 @@ El contrato público usa el `Request` estándar mediante `ExtendsRequest`, por l
 Ejecuta las pruebas unitarias y de integración:
 
 ```bash
-pnpm --filter @repo/route-forge test
+pnpm --filter route-forge test
 ```
 
 Genera el reporte de coverage V8:
 
 ```bash
-pnpm --filter @repo/route-forge test:coverage
+pnpm --filter route-forge test:coverage
 ```
 
-El coverage se publica en `packages/route-forge/coverage/` y no establece un umbral mínimo.
+El coverage se genera durante el desarrollo en `packages/route-forge/coverage/` y no establece un umbral mínimo.
 
 Las pruebas E2E de API se ejecutan desde la raíz:
 

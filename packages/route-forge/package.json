@@ -1,17 +1,33 @@
 {
-  "name": "@repo/route-forge",
-  "version": "0.0.0",
-  "private": true,
-  "main": "./index.ts",
-  "types": "./index.ts",
+  "name": "route-forge",
+  "version": "0.1.0",
+  "description": "Type-safe request pipeline for Next.js App Router route handlers",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
-    ".": "./index.ts"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
   },
+  "files": [
+    "dist",
+    "skills/route-forge",
+    "README.md",
+    "LICENSE"
+  ],
+  "sideEffects": false,
   "scripts": {
+    "build": "tsc -p tsconfig.build.json",
     "check-types": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "package:check": "pnpm build && publint && attw --pack . --profile esm-only --no-emoji && node scripts/verify-package.mjs",
+    "prepack": "pnpm build",
+    "prepublishOnly": "pnpm check-types && pnpm test && pnpm build"
   },
   "dependencies": {
     "zod": "^4.6.5"
@@ -20,10 +36,46 @@
     "next": ">=14.0.0"
   },
   "devDependencies": {
+    "@arethetypeswrong/cli": "^0.18.5",
     "@types/node": "^24.13.6",
     "@vitest/coverage-v8": "^5.0.1",
     "next": "14.2.35",
+    "publint": "^0.3.24",
     "typescript": "^5",
     "vitest": "^5.0.1"
+  },
+  "engines": {
+    "node": ">=18.17.0"
+  },
+  "license": "MIT",
+  "author": "asmel2020",
+  "keywords": [
+    "nextjs",
+    "app-router",
+    "route-handler",
+    "zod",
+    "validation",
+    "middleware",
+    "typescript"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "homepage": "https://github.com/asmel2020/route-forge#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/asmel2020/route-forge.git",
+    "directory": "packages/route-forge"
+  },
+  "bugs": {
+    "url": "https://github.com/asmel2020/route-forge/issues"
+  },
+  "npmSkills": {
+    "publish": {
+      "source": "skills",
+      "export": [
+        "route-forge"
+      ]
+    }
   }
 }

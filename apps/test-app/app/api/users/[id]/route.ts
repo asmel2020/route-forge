@@ -1,5 +1,5 @@
-import { handleRequest } from "@repo/route-forge";
-import type { Middleware } from "@repo/route-forge";
+import { handleRequest } from "route-forge";
+import type { Middleware } from "route-forge";
 import type { NextRequest } from "next/server";
 import { z } from "zod";
 
