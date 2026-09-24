@@ -87,7 +87,7 @@ No agregues lógica exclusiva para satisfacer una prueba. Las rutas de `apps/tes
 - Node.js `>=24` para desarrollo; el paquete publicado admite Node.js `>=18.17.0`.
 - pnpm `11.25.0`.
 - TypeScript estricto.
-- Next.js `>=14` como peer dependency.
+- Next.js `>=14` se usa solo como dev dependency para pruebas de compatibilidad; el paquete no lo exige en runtime.
 - Zod 4 para validación.
 - Turborepo para tareas del workspace.
 - Vitest 5 para unitarias.
@@ -163,12 +163,12 @@ Cuando sea posible, limita el formateo a los archivos modificados para evitar ca
 
 El paquete público se llama `@dannyjgg/route-forge`. GitHub Actions prepara una versión en staging cuando se crea un tag cuyo nombre coincide exactamente con `v` y la versión de `packages/route-forge/package.json`.
 
-Antes del primer release:
+Antes de cada release:
 
-1. Configura el secret `NPM_TOKEN_V` en GitHub.
+1. Configura el secret stage-only `NPM_TOKEN_V` en GitHub.
 2. Confirma que el tag pendiente no exista en GitHub ni en npm.
 3. Ejecuta `pnpm test:all` y `pnpm --filter @dannyjgg/route-forge package:check`.
-4. Crea el tag `v0.1.0` solamente cuando el usuario lo solicite.
+4. Crea el tag `v<version>` solamente cuando el usuario lo solicite.
 
 El workflow ejecuta coverage, E2E, `publint`, `attw`, validación del tarball y staging con provenance. Un maintainer debe aprobar cada staging con `npm stage approve <stage-id>` y 2FA. No publiques si una versión equivalente ya existe en npm.
 

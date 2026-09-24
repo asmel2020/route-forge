@@ -14,7 +14,7 @@ pnpm add @dannyjgg/route-forge zod
 
 Requirements:
 
-- Next.js 14 or newer.
+- Fetch-compatible runtime: `Request`, `Response`, `FormData` and `URL`. Tested with Next.js 14+, vinext and Cloudflare Workers.
 - Zod 4.
 - ESM-compatible project.
 

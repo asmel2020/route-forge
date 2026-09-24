@@ -128,7 +128,7 @@ Unknown errors are logged with `console.error` and converted to:
 
 ## Compatibility
 
-- Next.js 14 or newer.
+- Fetch-compatible runtime. Next.js 14+, vinext and Cloudflare Workers are supported.
 - Zod 4.
 - ESM-only JavaScript package.
 - Type declarations included.

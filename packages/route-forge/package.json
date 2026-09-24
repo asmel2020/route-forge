@@ -1,6 +1,6 @@
 {
   "name": "@dannyjgg/route-forge",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Type-safe request pipeline for Next.js App Router route handlers",
   "type": "module",
   "main": "./dist/index.js",
@@ -31,9 +31,6 @@
   },
   "dependencies": {
     "zod": "^4.6.5"
-  },
-  "peerDependencies": {
-    "next": ">=14.0.0"
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.18.5",

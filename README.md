@@ -11,7 +11,7 @@ Route Forge es una biblioteca TypeScript para facilitar endpoints de Next.js App
 - Excepciones HTTP tipadas.
 - Respuestas de error controladas y fallback `500`.
 - ESM-only con declaraciones TypeScript.
-- Compatibilidad con Next.js 14 y versiones actuales.
+- Compatible con Next.js 14+, vinext y otros runtimes basados en Fetch.
 - Skill portable para agentes compatibles con Agent Skills.
 
 ## Instalación del paquete
@@ -24,7 +24,7 @@ pnpm add @dannyjgg/route-forge zod
 npm install @dannyjgg/route-forge zod
 ```
 
-La aplicación consumidora debe tener Next.js 14 o superior.
+No requiere Next.js en runtime. Funciona con cualquier runtime que implemente `Request`, `Response`, `FormData` y `URL`; Next.js 14+, vinext y Workers están cubiertos por pruebas de integración.
 
 ## Skill para agentes
 

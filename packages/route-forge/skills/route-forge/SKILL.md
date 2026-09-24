@@ -2,10 +2,10 @@
 name: route-forge
 description: Build, review, and debug Next.js App Router route handlers with route-forge, handleRequest, Zod validation, FormData, dynamic params, middleware, and HttpError. Use when creating or refactoring typed API routes in Next.js.
 license: MIT
-compatibility: Requires Next.js 14 or newer and Zod 4.
+compatibility: Works with Fetch-compatible runtimes, including Next.js 14+, vinext and Cloudflare Workers; requires Zod 4.
 metadata:
   author: asmel2020
-  version: "0.1.0"
+  version: "0.1.1"
   package: "@dannyjgg/route-forge"
 ---
 
