@@ -83,7 +83,7 @@ No agregues lógica exclusiva para satisfacer una prueba. Las rutas de `apps/tes
 - pnpm `11.25.0`.
 - TypeScript estricto.
 - Next.js `>=14` como peer dependency.
-- Zod 3 para validación.
+- Zod 4 para validación.
 - Turborepo para tareas del workspace.
 - Vitest 5 para unitarias.
 - Playwright para E2E de API.

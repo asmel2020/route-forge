@@ -1,8 +1,8 @@
 import { ZodError } from "zod";
-import type { z, ZodType, ZodTypeDef } from "zod";
+import type { z, ZodType } from "zod";
 import { ValidateException } from "./exceptions";
 
-export const Validate = <T extends ZodType<unknown, ZodTypeDef, unknown>>(
+export const Validate = <T extends ZodType<unknown, unknown>>(
   Schema: T,
   data: unknown,
 ): z.infer<T> => {

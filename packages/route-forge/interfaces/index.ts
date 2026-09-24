@@ -1,6 +1,6 @@
-import type { z, ZodType, ZodTypeDef } from "zod";
+import type { z, ZodType } from "zod";
 
-export type RequestSchema = ZodType<unknown, ZodTypeDef, unknown>;
+export type RequestSchema = ZodType<unknown, unknown>;
 export type QueryParams = Record<string, string | string[]>;
 export type MiddlewareData = Record<string, unknown>;
 
