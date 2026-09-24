@@ -161,7 +161,7 @@ Cuando sea posible, limita el formateo a los archivos modificados para evitar ca
 
 ## Publicación npm
 
-El paquete público se llama `@dannyjgg/route-forge`. GitHub Actions publica cuando se crea un tag cuyo nombre coincide exactamente con `v` y la versión de `packages/route-forge/package.json`.
+El paquete público se llama `@dannyjgg/route-forge`. GitHub Actions prepara una versión en staging cuando se crea un tag cuyo nombre coincide exactamente con `v` y la versión de `packages/route-forge/package.json`.
 
 Antes del primer release:
 
@@ -170,7 +170,7 @@ Antes del primer release:
 3. Ejecuta `pnpm test:all` y `pnpm --filter @dannyjgg/route-forge package:check`.
 4. Crea el tag `v0.1.0` solamente cuando el usuario lo solicite.
 
-El workflow ejecuta coverage, E2E, `publint`, `attw`, validación del tarball y publica con provenance. No publiques si una versión equivalente ya existe en npm.
+El workflow ejecuta coverage, E2E, `publint`, `attw`, validación del tarball y staging con provenance. Un maintainer debe aprobar cada staging con `npm stage approve <stage-id>` y 2FA. No publiques si una versión equivalente ya existe en npm.
 
 ## Flujo de trabajo recomendado
 

@@ -67,8 +67,9 @@ jobs:
             exit 1
           fi
 
-      - name: Publish
-        run: pnpm --filter @dannyjgg/route-forge publish --access public --no-git-checks
+      - name: Stage package for approval
+        working-directory: packages/route-forge
+        run: npm stage publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN_V }}
           NPM_CONFIG_PROVENANCE: true

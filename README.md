@@ -102,6 +102,6 @@ pnpm build
 
 ## Publicación
 
-El workflow de publicación se activa con un tag `vX.Y.Z` que coincida exactamente con la versión del paquete. Requiere el secret `NPM_TOKEN_V` y publica con provenance.
+El workflow de publicación se activa con un tag `vX.Y.Z` que coincida exactamente con la versión del paquete. Usa el secret stage-only `NPM_TOKEN_V`, envía el paquete a staging y requiere aprobación humana con 2FA antes de hacerlo público.
 
 La documentación completa de la API está en [`packages/route-forge/README.md`](packages/route-forge/README.md).
